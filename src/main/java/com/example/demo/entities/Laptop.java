@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
-public class Laptop implements Product{
+public class Laptop extends Product {
 }

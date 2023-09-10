@@ -22,12 +22,14 @@ public class Customer {
     private String address;
     @Column (name = "phone")
     private String phone;
-    @Column (name = "email")
+    @Column (name = "email", nullable = false, unique = true)
     private String email;
     @Transient
     private String password;
     @Transient
     private List<Product> shopppingCart = new ArrayList<>();
+    @Transient
+    private Account account;
 
     public Customer() {
     }
@@ -104,5 +106,13 @@ public class Customer {
 
     public void setShopppingCart(List<Product> shopppingCart) {
         this.shopppingCart = shopppingCart;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
