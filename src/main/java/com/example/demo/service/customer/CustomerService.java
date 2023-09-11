@@ -63,6 +63,7 @@ public class CustomerService implements ICustomerService {
             System.err.println("Product not found");
         }else if(baseProduct.getQuantity() < product.getQuantity()) {
             System.err.println("Not enough products in stock");
+            System.out.println("");
         }
     }
 }
