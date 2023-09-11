@@ -70,5 +70,6 @@ public class CustomerService implements ICustomerService {
             logger.warning("Not enough products in stock");
             return;
         }
+        baseProduct.setQuantity(baseProduct.getQuantity() - product.getQuantity());
     }
 }
