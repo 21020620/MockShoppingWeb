@@ -7,4 +7,5 @@ public interface ICustomerService {
     void deleteCustomer(Long id);
     String getAllCustomers();
     Customer getCustomerById(Long id);
+    Customer getCustomerByEmail(String email);
 }

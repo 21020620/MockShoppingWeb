@@ -7,6 +7,6 @@ public interface IAccountService {
     void deleteAccount(String email);
     String getAllAccounts();
     Account getAccountByEmail(String email);
-
     boolean existsByEmail(String email);
+
 }

@@ -15,7 +15,6 @@ private String refreshToken;
     private Long id;
 
     @OneToOne
-    @JoinColumn()
     private Account account;
 
     @Column(name = "token", unique = true, nullable = false)

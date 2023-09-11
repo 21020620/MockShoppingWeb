@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/refreshtoken").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/logoutpage").permitAll()
                         .requestMatchers("/api/**").hasRole("Admin")
                         .requestMatchers("/service/**").hasRole("Customer")
                         .anyRequest().authenticated()

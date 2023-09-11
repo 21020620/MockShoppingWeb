@@ -9,9 +9,9 @@ import java.util.Date;
 
 @Component
 public class JwtProvider {
-    SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    public final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private final long JWT_EXPIRATION = 60000L;
+    private final long JWT_EXPIRATION = 300000L;
 
     public String generateToken(String email) {
         Date now = new Date();
@@ -48,4 +48,5 @@ public class JwtProvider {
         }
         return false;
     }
+
 }

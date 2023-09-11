@@ -1,5 +1,6 @@
 package com.example.demo.service.token;
 
+import com.example.demo.entities.Account;
 import com.example.demo.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,9 @@ public class RefreshTokenService {
         }
         refreshTokenRepo.delete(refreshToken);
         System.out.println("Refresh token deleted");
+    }
+
+    public RefreshToken findByAccount(Account account) {
+        return refreshTokenRepo.findByAccount(account).orElse(null);
     }
 }
