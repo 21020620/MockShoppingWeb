@@ -59,5 +59,6 @@ public class CustomerService implements ICustomerService {
 
     public void addProductToCart(Product product) {
         Product baseProduct = productRepository.findById(product.getId()).orElse(null);
+        if(baseProduct)
     }
 }
