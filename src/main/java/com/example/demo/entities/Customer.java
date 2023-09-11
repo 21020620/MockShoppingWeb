@@ -34,8 +34,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String name, int age, String address, String phone, String email, String password) {
-        this.id = id;
+    public Customer(String name, int age, String address, String phone, String email, String password) {
         this.name = name;
         this.age = age;
         this.address = address;
@@ -114,5 +113,17 @@ public class Customer {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

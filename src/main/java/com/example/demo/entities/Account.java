@@ -1,21 +1,26 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "account")
 public class Account {
     @Id
     private String email;
-    @Transient
+
     private String password;
+
+    @Column(name = "role")
+    private String role;
 
     public Account() {
     }
 
-    public Account(String email, String password) {
+    public Account(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public String getEmail() {
@@ -32,5 +37,22 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
