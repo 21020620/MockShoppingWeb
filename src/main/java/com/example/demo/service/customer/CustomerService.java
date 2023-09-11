@@ -1,6 +1,7 @@
 package com.example.demo.service.customer;
 
 import com.example.demo.entities.Account;
+import com.example.demo.entities.ApplicationLogger;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Product;
 import com.example.demo.repository.AccountRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
 public class CustomerService implements ICustomerService {
     @Autowired
@@ -19,6 +22,7 @@ public class CustomerService implements ICustomerService {
     private AccountRepository accountRepository;
     @Autowired
     private ProductRepository productRepository;
+    private static final Logger logger = ApplicationLogger.getLogger();
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -60,10 +64,11 @@ public class CustomerService implements ICustomerService {
     public void addProductToCart(Product product) {
         Product baseProduct = productRepository.findById(product.getId()).orElse(null);
         if(baseProduct == null) {
-            System.err.println("Product not found");
+            logger.warning("Product not found");
+            return;
         }else if(baseProduct.getQuantity() < product.getQuantity()) {
-            System.err.println("Not enough products in stock");
-            System.out.println("");
+            logger.warning("Not enough products in stock");
+            return;
         }
     }
 }
