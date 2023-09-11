@@ -59,6 +59,10 @@ public class CustomerService implements ICustomerService {
 
     public void addProductToCart(Product product) {
         Product baseProduct = productRepository.findById(product.getId()).orElse(null);
-        if(baseProduct)
+        if(baseProduct == null) {
+            System.err.println("Product not found");
+        }else if(baseProduct.getQuantity() < product.getQuantity()) {
+            System.err.println("Not enough products in stock");
+        }
     }
 }
