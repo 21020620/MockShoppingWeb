@@ -6,3 +6,57 @@ Sep 14, 2023 2:25:56 PM com.example.demo.controller.AuthenticationController aut
 INFO: User logged in successfully!
 Sep 14, 2023 2:26:15 PM com.example.demo.controller.PutController changeProductDetail
 INFO: Product updated
+Sep 14, 2023 3:23:30 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 3:23:45 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 3:24:41 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 3:24:47 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 3:24:54 PM com.example.demo.service.customer.CustomerService addProductToCart
+INFO: Not enough product in stock
+Sep 14, 2023 3:24:54 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Not enough product in stock
+Sep 14, 2023 3:24:58 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 3:25:51 PM com.example.demo.controller.PostController customerCheckOut
+INFO: Customer checked out
+Sep 14, 2023 3:28:19 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 3:28:31 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 3:28:40 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 3:29:05 PM com.example.demo.controller.PostController customerCheckOut
+INFO: Customer checked out
+Sep 14, 2023 3:29:20 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 3:31:25 PM com.example.demo.controller.PutController changeProductDetail
+INFO: Product updated
+Sep 14, 2023 3:31:36 PM com.example.demo.controller.PutController changeProductDetail
+INFO: Product updated
+Sep 14, 2023 4:21:19 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:27:10 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:35:40 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:42:00 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:43:16 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:44:11 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:49:10 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:56:17 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 4:56:33 PM com.example.demo.controller.PostController createProduct
+INFO: Product created: Product{id=1, name='Macbook Air', price=1.5E8, quantity=5}
+Sep 14, 2023 5:04:03 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 5:08:46 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 5:10:33 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entities.*;
-import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 @RestController
@@ -25,10 +26,19 @@ public class PostController {
 
     private static final Logger logger = ApplicationLogger.getLogger();
     @PostMapping("api/post/products")
-    public ResponseEntity<?> createProduct(@RequestBody Product product) {
-        logger.info("Product created: " + product.toString());
+    public ResponseEntity<?> createProduct(@RequestPart("imageFile") MultipartFile imageFile,
+                                           @RequestPart("productData") Product product) {
+        try {
+            byte[] imageBytes = imageFile.getBytes();
+            product.setImage(imageBytes);
+            System.out.println(product);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            return ResponseEntity.badRequest().body("Error when uploading image");
+        }
         productService.addProduct(product);
-        return ResponseEntity.ok("Product " + product + " created");
+        logger.info("Product created: " + product);
+        return ResponseEntity.ok("File received successful");
     }
 
     @PostMapping("service/addToCart")

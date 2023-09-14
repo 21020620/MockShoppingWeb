@@ -13,4 +13,5 @@ public interface ICustomerService {
     boolean addProductToCart(Customer customer, Product product, int quantity);
     String checkOut(Customer customer);
     void updateCustomer(Customer c1, Customer c2);
+    String showCart(Customer customer);
 }

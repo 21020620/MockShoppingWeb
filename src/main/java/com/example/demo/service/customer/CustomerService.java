@@ -117,4 +117,12 @@ public class CustomerService implements ICustomerService {
             c1.setEmail(c2.getEmail());
         }
     }
+
+    public String showCart(Customer customer) {
+        StringBuilder sb = new StringBuilder();
+        List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
+        ordersOfCustomer.forEach(order ->
+            sb.append(order.getProduct().getName()).append(" with quantity: ").append(order.getQuantity()).append("\n"));
+        return sb.toString();
+    }
 }

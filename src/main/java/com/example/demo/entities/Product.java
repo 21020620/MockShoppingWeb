@@ -20,6 +20,10 @@ public class Product {
     @Column(name = "Quantity")
     private int quantityInStock;
 
+    @Lob
+    @Column(name = "Image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+
     public Product() {
     }
 
@@ -69,5 +73,13 @@ public class Product {
 
     public void setQuantityInStock(int quantity) {
         quantityInStock = quantity;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
