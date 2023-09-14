@@ -21,8 +21,6 @@ public class PostController {
     @Autowired
     private IProductService productService;
     @Autowired
-    private IAccountService accountService;
-    @Autowired
     private ICustomerService customerService;
 
     private static final Logger logger = ApplicationLogger.getLogger();
