@@ -3,11 +3,13 @@ package com.example.demo.service.product;
 import com.example.demo.entities.Product;
 import com.example.demo.repository.ProductRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService implements IProductService {
+    @Autowired
     private ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {

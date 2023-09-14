@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "customer")
 @Component
@@ -26,8 +23,6 @@ public class Customer {
     private String email;
     @Transient
     private String password;
-    @Transient
-    private List<Product> shopppingCart = new ArrayList<>();
     @Transient
     private Account account;
 
@@ -97,14 +92,6 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Product> getShopppingCart() {
-        return shopppingCart;
-    }
-
-    public void setShopppingCart(List<Product> shopppingCart) {
-        this.shopppingCart = shopppingCart;
     }
 
     public Account getAccount() {

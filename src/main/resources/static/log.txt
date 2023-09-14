@@ -1,0 +1,70 @@
+Sep 13, 2023 10:26:41 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 13, 2023 10:28:36 PM com.example.demo.service.customer.CustomerService addProductToCart
+INFO: Not enough product in stock
+Sep 13, 2023 10:28:36 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Not enough product in stock
+Sep 13, 2023 10:28:52 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 13, 2023 10:59:43 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 13, 2023 11:00:04 PM com.example.demo.service.customer.CustomerService addProductToCart
+INFO: Not enough product in stock
+Sep 13, 2023 11:00:04 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Not enough product in stock
+Sep 13, 2023 11:00:09 PM com.example.demo.service.customer.CustomerService addProductToCart
+INFO: Not enough product in stock
+Sep 13, 2023 11:00:09 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Not enough product in stock
+Sep 13, 2023 11:01:05 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 13, 2023 11:01:18 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 13, 2023 11:01:30 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 13, 2023 11:18:46 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 13, 2023 11:27:41 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 13, 2023 11:27:55 PM com.example.demo.service.customer.CustomerService addProductToCart
+INFO: Not enough product in stock
+Sep 13, 2023 11:27:55 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Not enough product in stock
+Sep 13, 2023 11:28:03 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 13, 2023 11:35:12 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 13, 2023 11:35:29 PM com.example.demo.controller.PostController addProductToCartI
+INFO: Product added to cart
+Sep 14, 2023 9:02:44 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 9:04:55 AM com.example.demo.controller.PutController changeDetail
+INFO: Customer updated
+Sep 14, 2023 10:31:34 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:33:03 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:37:28 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:41:43 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:45:16 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:47:01 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:51:50 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:53:13 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:57:20 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 10:58:40 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 11:00:58 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 11:03:14 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 11:08:29 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 14, 2023 11:12:47 AM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!

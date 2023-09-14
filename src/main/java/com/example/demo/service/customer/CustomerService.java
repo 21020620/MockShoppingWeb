@@ -1,17 +1,18 @@
 package com.example.demo.service.customer;
 
-import com.example.demo.entities.Account;
-import com.example.demo.entities.ApplicationLogger;
-import com.example.demo.entities.Customer;
-import com.example.demo.entities.Product;
+import com.example.demo.entities.*;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.OrderRepository;
+import com.example.demo.service.order.IOrderService;
+import com.example.demo.service.product.IProductService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -21,7 +22,11 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private ProductRepository productRepository;
+    private IProductService productService;
+    @Autowired
+    private IOrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
     private static final Logger logger = ApplicationLogger.getLogger();
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -61,15 +66,59 @@ public class CustomerService implements ICustomerService {
         return customerRepository.findByEmail(email).orElse(null);
     }
 
-    public void addProductToCart(Product product) {
-        Product baseProduct = productRepository.findById(product.getId()).orElse(null);
-        if(baseProduct == null) {
-            logger.warning("Product not found");
-            return;
-        }else if(baseProduct.getQuantity() < product.getQuantity()) {
-            logger.warning("Not enough products in stock");
-            return;
+    @Transactional
+    public boolean addProductToCart(Customer customer, Product product, int quantity) {
+        if(product.getQuantityInStock() < quantity) {
+            logger.info("Not enough product in stock");
+            return false;
         }
-        baseProduct.setQuantity(baseProduct.getQuantity() - product.getQuantity());
+        if(orderService.findOrderByCustomerAndProduct(customer, product) != null) {
+            Order order = orderService.findOrderByCustomerAndProduct(customer, product);
+            order.setQuantity(order.getQuantity() + quantity);
+            orderService.addOrder(order);
+            return true;
+        }
+        orderService.addOrder(new Order(customer, product, quantity));
+        return true;
+    }
+
+    @Transactional
+    public String checkOut(Customer customer) {
+        StringBuilder sb = new StringBuilder();
+        double totalPrice = 0;
+        List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
+        for(Order o : ordersOfCustomer) {
+            Product product = o.getProduct();
+            product.setQuantityInStock(product.getQuantityInStock() - o.getQuantity());
+            totalPrice += product.getPrice() * o.getQuantity();
+            sb.append("Check out for product: ").append(product.getName()).append(" with quantity: ").append(o.getQuantity()).append("\n");
+            productService.addProduct(product);
+            orderRepository.delete(o);
+        }
+        customerRepository.save(customer);
+        sb.append("Total price: ").append(new DecimalFormat("#").format(totalPrice));
+        return sb.toString();
+    }
+
+    @Transactional
+    public void updateCustomer(Customer c1, Customer c2) {
+        c1.setName(c2.getName() != null ? c2.getName() : c1.getName());
+        c1.setAddress(c2.getAddress() != null ? c2.getAddress() : c1.getAddress());
+        c1.setPhone(c2.getPhone() != null ? c2.getPhone() : c1.getPhone());
+        c1.setAge(c2.getAge() != 0 ? c2.getAge() : c1.getAge());
+        if(c2.getPassword() != null) {
+            Account account = accountRepository.findByEmail(c2.getEmail()).orElse(null);
+            if(account == null) return;
+            account.setPassword(c2.getPassword());
+            c1.setAccount(account);
+            c1.setPassword(c2.getPassword());
+        }
+        if(c2.getEmail() != null) {
+            Account account = accountRepository.findByEmail(c2.getEmail()).orElse(null);
+            if(account == null) return;
+            account.setEmail(c2.getEmail());
+            c1.setAccount(account);
+            c1.setEmail(c2.getEmail());
+        }
     }
 }

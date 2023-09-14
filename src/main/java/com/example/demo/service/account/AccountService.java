@@ -3,11 +3,13 @@ package com.example.demo.service.account;
 import com.example.demo.entities.Account;
 import com.example.demo.repository.AccountRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService implements IAccountService {
+    @Autowired
     private AccountRepository accountRepository;
 
     public AccountService(AccountRepository accountRepository) {

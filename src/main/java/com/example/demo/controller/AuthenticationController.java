@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.logging.*;
 
@@ -42,14 +41,15 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Account account = accountService.getAccountByEmail(loginRequest.getUsername());
-        System.out.println("Account found: " + account.toString());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwt = jwtProvider.generateToken(userDetails.getUsername());
+        RefreshToken checkExits = refreshTokenService.findByAccount(accountService.getAccountByEmail(userDetails.getUsername()));
+        if(checkExits != null)
+            refreshTokenService.deleteRefreshToken(checkExits.getToken());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getUsername());
         logger.info("User logged in successfully!");
         return new LoginResponse(jwt, refreshToken.getToken());

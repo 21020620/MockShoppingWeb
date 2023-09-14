@@ -16,21 +16,17 @@ public class Product {
     @Column(name = "Price")
     private double price;
 
+    //Quantity in Stock
     @Column(name = "Quantity")
-    private int quantity;
+    private int quantityInStock;
 
     public Product() {
     }
 
-    public Product(Long id, String name, double price) {
-        this.id = id;
+    public Product(String name, double price, int quantity) {
         this.name = name;
         this.price = price;
-    }
-
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
+        quantityInStock = quantity;
     }
 
     public Long getId() {
@@ -63,14 +59,15 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantityInStock +
                 '}';
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityInStock() {
+        return quantityInStock;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityInStock(int quantity) {
+        quantityInStock = quantity;
     }
 }
