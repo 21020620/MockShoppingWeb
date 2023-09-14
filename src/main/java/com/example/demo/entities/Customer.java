@@ -23,7 +23,9 @@ public class Customer {
     private String email;
     @Transient
     private String password;
-    @Transient
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_username", referencedColumnName = "email")
     private Account account;
 
     public Customer() {

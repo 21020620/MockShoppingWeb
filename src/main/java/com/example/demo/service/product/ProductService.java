@@ -44,4 +44,12 @@ public class ProductService implements IProductService {
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public void updateProduct(Product p1, Product p2) {
+        p1.setName(p2.getName() != null ? p2.getName() : p1.getName());
+        p1.setPrice(p2.getPrice() > 0 ? p2.getPrice() : p1.getPrice());
+        p1.setQuantityInStock(p2.getQuantityInStock() >= 0 ? p2.getQuantityInStock() : p1.getQuantityInStock());
+        productRepository.save(p1);
+    }
 }

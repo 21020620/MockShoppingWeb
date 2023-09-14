@@ -36,9 +36,6 @@ public class CustomerService implements ICustomerService {
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     public void addCustomer(Customer customer) {
-        Account account = new Account(customer.getEmail(), customer.getPassword(), "ROLE_Customer");
-        customer.setAccount(account);
-        accountRepository.save(account);
         customerRepository.save(customer);
     }
 
@@ -87,15 +84,14 @@ public class CustomerService implements ICustomerService {
         StringBuilder sb = new StringBuilder();
         double totalPrice = 0;
         List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
+        ordersOfCustomer.forEach(System.out::println);
         for(Order o : ordersOfCustomer) {
             Product product = o.getProduct();
             product.setQuantityInStock(product.getQuantityInStock() - o.getQuantity());
             totalPrice += product.getPrice() * o.getQuantity();
             sb.append("Check out for product: ").append(product.getName()).append(" with quantity: ").append(o.getQuantity()).append("\n");
-            productService.addProduct(product);
             orderRepository.delete(o);
         }
-        customerRepository.save(customer);
         sb.append("Total price: ").append(new DecimalFormat("#").format(totalPrice));
         return sb.toString();
     }

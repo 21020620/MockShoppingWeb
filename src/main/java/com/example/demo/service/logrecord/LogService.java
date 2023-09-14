@@ -18,4 +18,14 @@ public class LogService implements ILogService{
     public void addLog(LogRec logRec) {
         logRepository.save(logRec);
     }
+
+    @Override
+    public Long numberOfLogs() {
+        return logRepository.count();
+    }
+
+    @Override
+    public void clearLogs() {
+        logRepository.deleteAll();
+    }
 }

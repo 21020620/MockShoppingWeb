@@ -7,4 +7,5 @@ public interface IProductService {
     void deleteProduct(Long id);
     String getAllProducts();
     Product getProductById(Long id);
+    void updateProduct(Product p1, Product p2);
 }

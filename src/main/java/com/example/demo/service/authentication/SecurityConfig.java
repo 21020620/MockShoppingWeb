@@ -37,7 +37,7 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/login", "/refreshtoken", "/signup", "/logoutpage").permitAll()
+                        .requestMatchers("/login", "/refreshtoken", "/signup", "/logoutpage", "/register").permitAll()
                         .requestMatchers("/api/**").hasRole("Admin")
                         .requestMatchers("/service/**").hasRole("Customer")
                         .anyRequest().authenticated()

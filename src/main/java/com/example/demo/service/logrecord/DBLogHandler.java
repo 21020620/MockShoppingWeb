@@ -18,16 +18,11 @@ public class DBLogHandler extends Handler {
     public DBLogHandler() {
     }
 
-
-    @PostConstruct
-    public void init() {
-        System.out.println("log service: " + logService);;
-    }
-
     @Override
     public void publish(LogRecord record) {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(record.getMillis()));
         LogRec logRec = new LogRec(record.getMessage(), record.getLevel().toString(), timestamp);
+        if(logService.numberOfLogs() >= 20) logService.clearLogs();
         logService.addLog(logRec);
     }
 

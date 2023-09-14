@@ -27,9 +27,10 @@ public class PostController {
 
     private static final Logger logger = ApplicationLogger.getLogger();
     @PostMapping("api/post/products")
-    public void createProduct(@RequestBody Product product) {
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
         logger.info("Product created: " + product.toString());
         productService.addProduct(product);
+        return ResponseEntity.ok("Product " + product + " created");
     }
 
     @PostMapping("service/addToCart")
@@ -50,10 +51,9 @@ public class PostController {
         return ResponseEntity.ok("Product added to cart");
     }
 
-    @PostMapping("api/post/customer")
+    @PostMapping(value = {"api/post/customer", "register"})
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-        Account account = new Account(customer.getEmail(), customer.getPassword(), "ROLE_Customer");
-        customer.setAccount(account);
+        customer.setAccount(new Account(customer.getEmail(), customer.getPassword(), "ROLE_Customer"));
         customerService.addCustomer(customer);
         logger.info("Customer created");
         return ResponseEntity.status(201).body("Customer created");
@@ -64,6 +64,7 @@ public class PostController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Customer customer = customerService.getCustomerByEmail(userDetails.getUsername());
+        logger.info("Customer checked out");
         return ResponseEntity.ok(customerService.checkOut(customer));
     }
 }
