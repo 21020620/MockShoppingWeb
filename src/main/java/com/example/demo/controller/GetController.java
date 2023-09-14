@@ -23,7 +23,7 @@ public class GetController {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping({"api/get/products", "service/products"})
+    @GetMapping(value = {"api/get/products", "service/products"})
     public String getAllProduct() {
         return productService.getAllProducts();
     }
