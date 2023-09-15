@@ -1,27 +1,30 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "customer")
-@Component
-@Scope("prototype")
 public class Customer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name cannot be blank")
+    @Pattern(regexp = "^[a-zA-Z\\s'-]+$", message = "Name must contain only letters")
     private String name;
     @Column(name = "age")
+    @Min(value = 1, message = "Age must be greater than 0")
     private int age;
     @Column (name = "address")
     private String address;
-    @Column (name = "phone")
+    @Column (name = "phone", unique = true)
+    @Pattern(regexp = "^[0-9]$", message = "Phone number must contain only numbers")
     private String phone;
     @Column (name = "email", nullable = false, unique = true)
+    @Email(message = "Email must be in the correct format")
     private String email;
     @Transient
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

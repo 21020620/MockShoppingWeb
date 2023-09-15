@@ -5,10 +5,10 @@ import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.service.order.IOrderService;
-import com.example.demo.service.product.IProductService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -22,8 +22,6 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private IProductService productService;
-    @Autowired
     private IOrderService orderService;
     @Autowired
     private OrderRepository orderRepository;
@@ -34,8 +32,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Transactional
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
-    public void addCustomer(Customer customer) {
+    public void addCustomer(@Valid Customer customer) {
         customerRepository.save(customer);
     }
 
@@ -124,5 +121,10 @@ public class CustomerService implements ICustomerService {
         ordersOfCustomer.forEach(order ->
             sb.append(order.getProduct().getName()).append(" with quantity: ").append(order.getQuantity()).append("\n"));
         return sb.toString();
+    }
+
+    public void validateCustomer(Customer customer) {
+        if(customer.getName() == null || customer.getName().isEmpty())
+            throw new CustomerException("Name cannot be empty");
     }
 }

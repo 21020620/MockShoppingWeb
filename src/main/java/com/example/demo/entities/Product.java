@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope("prototype")
 @Table(name = "product")
 @Entity
 public class Product {

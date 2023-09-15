@@ -24,7 +24,7 @@ public class PutController {
     private static final Logger logger = ApplicationLogger.getLogger();
 
     @PutMapping("service/changeDetail")
-    public ResponseEntity<?> changeDetail(@RequestBody Customer inputCustomer) {
+    public ResponseEntity<?> changeCustomerDetail(@RequestBody Customer inputCustomer) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Customer baseCustomer = customerService.getCustomerByEmail(userDetails.getUsername());

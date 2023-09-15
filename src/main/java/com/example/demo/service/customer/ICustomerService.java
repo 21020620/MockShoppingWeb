@@ -14,4 +14,6 @@ public interface ICustomerService {
     String checkOut(Customer customer);
     void updateCustomer(Customer c1, Customer c2);
     String showCart(Customer customer);
+
+    void validateCustomer(Customer customer);
 }
