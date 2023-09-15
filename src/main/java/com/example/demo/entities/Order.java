@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "orders")
@@ -17,6 +18,7 @@ public class Order {
     private Product product;
 
     @Column(name = "quantity")
+    @Min(value = 0, message = "Quantity must be greater than or equal to 0")
     private int quantity;
 
     public Order() {

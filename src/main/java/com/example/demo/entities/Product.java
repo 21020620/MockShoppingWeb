@@ -1,8 +1,8 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Table(name = "product")
 @Entity
@@ -10,12 +10,15 @@ public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "ProductName")
+    @NotBlank(message = "Product name cannot be blank")
     private String name;
     @Column(name = "Price")
+    @Min(value = 1, message = "Price must be greater than 0")
     private double price;
 
     //Quantity in Stock
     @Column(name = "Quantity")
+    @Min(value = 0, message = "Quantity must be greater than or equal to 0")
     private int quantityInStock;
 
     @Lob
