@@ -119,12 +119,7 @@ public class CustomerService implements ICustomerService {
         StringBuilder sb = new StringBuilder();
         List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
         ordersOfCustomer.forEach(order ->
-            sb.append(order.getProduct().getName()).append(" with quantity: ").append(order.getQuantity()).append("\n"));
+                sb.append(order.getProduct().getName()).append(" with quantity: ").append(order.getQuantity()).append("\n"));
         return sb.toString();
-    }
-
-    public void validateCustomer(Customer customer) {
-        if(customer.getName() == null || customer.getName().isEmpty())
-            throw new CustomerException("Name cannot be empty");
     }
 }

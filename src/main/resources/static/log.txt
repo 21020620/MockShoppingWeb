@@ -10,3 +10,5 @@ Sep 15, 2023 4:47:39 PM com.example.demo.controller.AuthenticationController aut
 INFO: User logged in successfully!
 Sep 15, 2023 4:50:17 PM com.example.demo.controller.AuthenticationController authenticateUser
 INFO: User logged in successfully!
+Sep 15, 2023 5:19:43 PM com.example.demo.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
