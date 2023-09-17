@@ -7,6 +7,6 @@ import com.example.demo.entities.Product;
 public interface IOrderService {
     void addOrder(Order order);
     void deleteOrder(Long id);
-    Order findOrderByCustomerAndProduct(Customer customer, Product product);
+
 
 }

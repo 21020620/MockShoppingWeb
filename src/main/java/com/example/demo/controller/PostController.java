@@ -39,7 +39,7 @@ public class PostController {
         }
         productService.addProduct(product);
         logger.info("Product created: " + product);
-        return ResponseEntity.ok("File received successful");
+        return ResponseEntity.ok("File received successful\nProduct created");
     }
 
     @PostMapping("service/addToCart")
@@ -48,14 +48,7 @@ public class PostController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Customer customer = customerService.getCustomerByEmail(userDetails.getUsername());
         Product product = productService.getProductById(id);
-        if(product == null) {
-            logger.info("Product not found");
-            return ResponseEntity.badRequest().body("Product not found");
-        }
-        if (!customerService.addProductToCart(customer, product, quantity)){
-            logger.info("Not enough product in stock");
-            return ResponseEntity.badRequest().body("Not enough product in stock");
-        }
+        customerService.addProductToCart(customer, product, quantity);
         logger.info("Product added to cart");
         return ResponseEntity.ok("Product added to cart");
     }
@@ -64,6 +57,7 @@ public class PostController {
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         customer.setAccount(new Account(customer.getEmail(), customer.getPassword(), "ROLE_Customer"));
         customerService.addCustomer(customer);
+        System.out.println("Password: " + customer.getPassword());
         logger.info("Customer created");
         return ResponseEntity.status(201).body("Customer created");
     }
@@ -75,5 +69,14 @@ public class PostController {
         Customer customer = customerService.getCustomerByEmail(userDetails.getUsername());
         logger.info("Customer checked out");
         return ResponseEntity.ok(customerService.checkOut(customer));
+    }
+
+    @PostMapping("service/addReview/{productId}")
+    public ResponseEntity<?> addReview(@PathVariable Long productId, @RequestBody ProductReview productReview) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Customer customer = customerService.getCustomerByEmail(userDetails.getUsername());
+        productService.addReview(productId, productReview, customer);
+        return ResponseEntity.ok("Review added");
     }
 }

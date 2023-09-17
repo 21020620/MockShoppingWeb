@@ -10,7 +10,7 @@ public interface ICustomerService {
     Customer getCustomerById(Long id);
     Customer getCustomerByEmail(String email);
 
-    boolean addProductToCart(Customer customer, Product product, int quantity);
+    void addProductToCart(Customer customer, Product product, int quantity);
     String checkOut(Customer customer);
     void updateCustomer(Customer c1, Customer c2);
     String showCart(Customer customer);

@@ -1,18 +1,23 @@
 package com.example.demo.service.customer;
 
+import ch.qos.logback.core.model.INamedModel;
 import com.example.demo.entities.*;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.service.order.IOrderService;
+import com.example.demo.service.product.IProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Service
@@ -22,9 +27,9 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private IOrderService orderService;
-    @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private IProductService productService;
     private static final Logger logger = ApplicationLogger.getLogger();
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -52,44 +57,87 @@ public class CustomerService implements ICustomerService {
     }
 
     public Customer getCustomerById(Long id) {
-        return customerRepository.findById(id).orElse(null);
+        return customerRepository.findById(id).orElseThrow(() -> new CustomerException("Customer not found"));
     }
 
 
     public Customer getCustomerByEmail(String email) {
-        return customerRepository.findByEmail(email).orElse(null);
+        return customerRepository.findByEmail(email).orElseThrow(() -> new CustomerException("Customer not found"));
     }
 
     @Transactional
-    public boolean addProductToCart(Customer customer, Product product, int quantity) {
-        if(product.getQuantityInStock() < quantity) {
-            logger.info("Not enough product in stock");
-            return false;
+    public void addProductToCart(Customer customer, Product product, int quantity) {
+        Long productID = product.getId();
+        if(product.getQuantityInStock() < quantity)
+            throw new CustomerException("Not enough product in stock");
+        String json = customer.getJsonCart();
+        ObjectMapper objectMapper = new ObjectMapper();
+        if(json == null){
+            Map<Long, Integer> temp = new LinkedHashMap<>();
+            try {
+                if(quantity > product.getQuantityInStock())
+                    throw new CustomerException("Not enough product in stock");
+                temp.put(productID, quantity);
+                json = objectMapper.writeValueAsString(temp);
+                customer.setJsonCart(json);
+                return;
+            } catch (Exception e) {
+                throw new CustomerException("Error when parsing json");
+            }
         }
-        if(orderService.findOrderByCustomerAndProduct(customer, product) != null) {
-            Order order = orderService.findOrderByCustomerAndProduct(customer, product);
-            order.setQuantity(order.getQuantity() + quantity);
-            orderService.addOrder(order);
-            return true;
+        try {
+            Map<Long, Integer> shoppingCart = objectMapper.readValue(json, new TypeReference<>() {});
+            if(shoppingCart.containsKey(productID)) {
+                Integer quantityInCart = shoppingCart.get(product.getId());
+                if(quantityInCart != null) {
+                    if(quantityInCart + quantity > product.getQuantityInStock())
+                        throw new CustomerException("Not enough product in stock");
+                    shoppingCart.put(productID, quantityInCart + quantity);
+                } else
+                    shoppingCart.put(productID, quantity);
+            } else {
+                shoppingCart.put(productID, quantity);
+            }
+            customer.setJsonCart(objectMapper.writeValueAsString(shoppingCart));
+        } catch (CustomerException e) {
+            throw new CustomerException("Customer Exception (May not enough products)");
+        } catch (Exception e) {
+            throw new CustomerException("Error when parsing json");
         }
-        orderService.addOrder(new Order(customer, product, quantity));
-        return true;
     }
 
     @Transactional
     public String checkOut(Customer customer) {
         StringBuilder sb = new StringBuilder();
         double totalPrice = 0;
-        List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
-        ordersOfCustomer.forEach(System.out::println);
-        for(Order o : ordersOfCustomer) {
-            Product product = o.getProduct();
-            product.setQuantityInStock(product.getQuantityInStock() - o.getQuantity());
-            totalPrice += product.getPrice() * o.getQuantity();
-            sb.append("Check out for product: ").append(product.getName()).append(" with quantity: ").append(o.getQuantity()).append("\n");
-            orderRepository.delete(o);
+        String json = customer.getJsonCart();
+        if(json == null) return "Cart is empty";
+        ObjectMapper objectMapper = new ObjectMapper();
+        Set<OrderItem> orderItems = new HashSet<>();
+        Order order = new Order(new Date(), orderItems, customer, totalPrice);
+        try {
+            Map<Long, Integer> shoppingCart = objectMapper.readValue(json, new TypeReference<>() {});
+            for (Map.Entry<Long, Integer> entry : shoppingCart.entrySet()) {
+                Product product = productService.getProductById(entry.getKey());
+                if(product.getQuantityInStock() < entry.getValue())
+                    throw new CustomerException("Not enough product in stock");
+                OrderItem orderItem = new OrderItem(order, product, entry.getValue(), customer);
+                sb.append("Product: ").append(product.getName()).append(" with quantity: ").append(entry.getValue()).append("\n");
+                order.getOrderItems().add(orderItem);
+                totalPrice += product.getPrice() * entry.getValue();
+                product.setQuantityInStock(product.getQuantityInStock() - entry.getValue());
+            }
+            DecimalFormat df = new DecimalFormat("#.##");
+            sb.append("Total price: ").append(df.format(totalPrice)).append("\n");
+            order.setTotal(totalPrice);
+            orderRepository.save(order);
+            shoppingCart.clear();
+            customer.setJsonCart(null);
+        } catch (CustomerException e) {
+            throw new CustomerException("Customer Exception (May not enough products)");
+        } catch (Exception e) {
+            throw new CustomerException("Error when parsing json");
         }
-        sb.append("Total price: ").append(new DecimalFormat("#").format(totalPrice));
         return sb.toString();
     }
 
@@ -117,9 +165,20 @@ public class CustomerService implements ICustomerService {
 
     public String showCart(Customer customer) {
         StringBuilder sb = new StringBuilder();
-        List<Order> ordersOfCustomer = orderRepository.findByCustomer(customer);
-        ordersOfCustomer.forEach(order ->
-                sb.append(order.getProduct().getName()).append(" with quantity: ").append(order.getQuantity()).append("\n"));
+        String json = customer.getJsonCart();
+        if(json == null) return "Cart is empty";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Map<Long, Integer> shoppingCart = objectMapper.readValue(json, new TypeReference<>() {});
+            shoppingCart.forEach((key, value) -> {
+                Product product = productService.getProductById(key);
+                sb.append("Product: ").append(product.getName()).append(" with quantity: ").append(value).append("\n");
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());;
+        }
         return sb.toString();
     }
+
+
 }

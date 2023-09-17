@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entities.ApplicationLogger;
+import com.example.demo.entities.CustomerException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,5 +18,11 @@ public class GlobalExceptionHandler {
         e.getConstraintViolations().forEach(violation -> sb.append(violation.getMessage()).append("\n"));
         logger.warning("Validation process exception");
         return ResponseEntity.badRequest().body(sb.toString());
+    }
+
+    @ExceptionHandler(value = CustomerException.class)
+    public ResponseEntity<?> handleCustomerException(CustomerException e) {
+        logger.warning("Customer exception");
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

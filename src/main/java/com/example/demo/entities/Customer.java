@@ -1,7 +1,11 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "customer")
@@ -18,18 +22,21 @@ public class Customer {
     @Column (name = "address")
     private String address;
     @Column (name = "phone", unique = true)
-    @Pattern(regexp = "^[0-9]$", message = "Phone number must contain only numbers")
+    @Pattern(regexp = "^[0-9]+$", message = "Phone number must contain only numbers")
     private String phone;
     @Column (name = "email", nullable = false, unique = true)
     @Email(message = "Email must be in the correct format")
     private String email;
-    @Transient
+    @Column (name = "password", nullable = false)
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_username", referencedColumnName = "email")
     private Account account;
+
+    @Column(name = "cart")
+    private String jsonCart;
 
     public Customer() {
     }
@@ -107,6 +114,14 @@ public class Customer {
         this.account = account;
     }
 
+    public String getJsonCart() {
+        return jsonCart;
+    }
+
+    public void setJsonCart(String jsonCart) {
+        this.jsonCart = jsonCart;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -116,6 +131,7 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

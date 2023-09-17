@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping()
 public class GetController {
@@ -42,6 +44,12 @@ public class GetController {
         return customerService.getAllCustomers();
     }
 
+    @GetMapping("api/get/customer/{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok(customer);
+    }
+
     @GetMapping("service/showCart")
     public ResponseEntity<?> showCart() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +58,7 @@ public class GetController {
         return ResponseEntity.ok(customerService.showCart(customer));
     }
 
-    @GetMapping("api/getProduct/{productId}")
+    @GetMapping(value = {"api/getProductImage/{productId}", "service/getProductImage/{productId}"})
     public ResponseEntity<byte[]> getProductImage(@PathVariable Long productId) {
         Product product = productService.getProductById(productId);
         if (product == null || product.getImage() == null) {
@@ -61,5 +69,17 @@ public class GetController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(product.getImage());
+    }
+
+    @GetMapping("api/getProduct/{productId}")
+    public ResponseEntity<?> getProduct(@PathVariable Long productId) {
+        Product product = productService.getProductById(productId);
+        return ResponseEntity.ok(product);
+    }
+
+    @GetMapping(value = {"api/getProductReviews/{productId}", "service/getProductReviews/{productId}"})
+    public ResponseEntity<?> getProductReviews(@PathVariable Long productId) {
+        Product product = productService.getProductById(productId);
+        return ResponseEntity.ok(productService.showAllReviews(productId));
     }
 }
