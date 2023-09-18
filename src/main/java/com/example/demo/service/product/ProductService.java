@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService implements IProductService {
@@ -38,9 +37,8 @@ public class ProductService implements IProductService {
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     public void deleteProduct(Long id) {
         boolean exists = productRepository.existsById(id);
-        if (!exists) {
-            System.out.println("Product with id " + id + " does not exist");
-        }
+        if (!exists)
+            throw new CustomerException("Product with id " + id + " does not exist");
         productRepository.deleteById(id);
         System.out.println("Product removed: " + id);
     }

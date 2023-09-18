@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.entities.*;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.product.IProductService;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;

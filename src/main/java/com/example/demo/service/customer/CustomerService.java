@@ -1,13 +1,10 @@
 package com.example.demo.service.customer;
 
-import ch.qos.logback.core.model.INamedModel;
 import com.example.demo.entities.*;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.OrderRepository;
-import com.example.demo.service.order.IOrderService;
 import com.example.demo.service.product.IProductService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
@@ -15,7 +12,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.logging.Logger;

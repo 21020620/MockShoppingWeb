@@ -1,7 +1,6 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 
 import java.util.Date;
 import java.util.HashSet;

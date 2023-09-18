@@ -1,7 +1,6 @@
 package com.example.demo.service.logrecord;
 
 import com.example.demo.entities.LogRec;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
