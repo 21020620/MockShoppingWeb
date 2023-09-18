@@ -18,7 +18,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
     @Column(name = "total")

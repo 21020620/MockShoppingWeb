@@ -16,12 +16,14 @@ import java.util.logging.Logger;
 
 @RestController
 public class PutController {
-    @Autowired
     private ICustomerService customerService;
-
-    @Autowired
     private IProductService productService;
     private static final Logger logger = ApplicationLogger.getLogger();
+
+    public PutController(ICustomerService customerService, IProductService productService) {
+        this.customerService = customerService;
+        this.productService = productService;
+    }
 
     @PutMapping("service/changeDetail")
     public ResponseEntity<?> changeCustomerDetail(@RequestBody Customer inputCustomer) {

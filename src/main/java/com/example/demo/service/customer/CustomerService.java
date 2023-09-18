@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.logging.Logger;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -26,7 +25,6 @@ public class CustomerService implements ICustomerService {
     private OrderRepository orderRepository;
     @Autowired
     private IProductService productService;
-    private static final Logger logger = ApplicationLogger.getLogger();
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -171,10 +169,8 @@ public class CustomerService implements ICustomerService {
                 sb.append("Product: ").append(product.getName()).append(" with quantity: ").append(value).append("\n");
             });
         } catch (Exception e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
         return sb.toString();
     }
-
-
 }

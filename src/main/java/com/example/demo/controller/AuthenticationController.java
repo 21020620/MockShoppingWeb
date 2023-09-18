@@ -25,16 +25,19 @@ import java.util.logging.*;
 @RestController
 @RequestMapping()
 public class AuthenticationController {
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
     private JwtProvider jwtProvider;
-    @Autowired
     private IAccountService accountService;
-    @Autowired
     private RefreshTokenService refreshTokenService;
 
     private static final Logger logger = ApplicationLogger.getLogger();
+
+    public AuthenticationController(AuthenticationManager authenticationManager, JwtProvider jwtProvider, IAccountService accountService, RefreshTokenService refreshTokenService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+        this.accountService = accountService;
+        this.refreshTokenService = refreshTokenService;
+    }
 
     @PostMapping("/login")
     public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {

@@ -19,10 +19,13 @@ import java.util.logging.Logger;
 
 @RestController
 public class PostController {
-    @Autowired
     private IProductService productService;
-    @Autowired
     private ICustomerService customerService;
+
+    public PostController(IProductService productService, ICustomerService customerService) {
+        this.productService = productService;
+        this.customerService = customerService;
+    }
 
     private static final Logger logger = ApplicationLogger.getLogger();
     @PostMapping("api/post/products")
