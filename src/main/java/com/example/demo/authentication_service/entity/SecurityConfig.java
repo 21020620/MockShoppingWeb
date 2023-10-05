@@ -35,7 +35,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("Security filter chain");
         http
                 .cors(withDefaults())
                 .authorizeHttpRequests((authz) -> authz

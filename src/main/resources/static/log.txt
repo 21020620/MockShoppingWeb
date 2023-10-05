@@ -24,3 +24,9 @@ Oct 05, 2023 9:43:27 AM com.example.demo.authentication_service.controller.Authe
 INFO: User logged in successfully!
 Oct 05, 2023 9:43:46 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
 WARNING: Cannot invoke "com.example.demo.product_service.repository.ProductService.getAllProducts()" because "this.productService" is null
+Oct 05, 2023 9:47:49 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 05, 2023 9:48:47 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleCustomerException
+WARNING: Customer exception
+Oct 05, 2023 9:48:55 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleCustomerException
+WARNING: Customer exception

@@ -19,7 +19,6 @@ public class AuthenticationService implements UserDetailsService {
     private AccountService accountService;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("Authentication service");
         Account account = accountService.getAccountByEmail(email);
         if (account == null) {
             throw new UsernameNotFoundException("Could not find account");

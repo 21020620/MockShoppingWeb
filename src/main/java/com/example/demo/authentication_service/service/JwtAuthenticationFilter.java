@@ -25,8 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UserDetailsService AuthenticationService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("Jwt authentication filter");
+                                    FilterChain filterChain) throws IOException {
         try {
             String jwt = getJwtFromRequest(request);
             if (JwtProvider.blackList.contains(jwt))
