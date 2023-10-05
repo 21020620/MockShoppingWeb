@@ -1,28 +1,26 @@
-Sep 18, 2023 8:58:50 PM com.example.demo.controller.AuthenticationController authenticateUser
+Sep 25, 2023 3:53:33 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
 INFO: User logged in successfully!
-Sep 18, 2023 8:59:25 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 8:59:30 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 8:59:33 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 8:59:45 PM com.example.demo.controller.PostController customerCheckOut
-INFO: Customer checked out
-Sep 18, 2023 8:59:45 PM com.example.demo.controller.GlobalExceptionHandler handleCustomerException
-WARNING: Customer exception
-Sep 18, 2023 9:00:38 PM com.example.demo.controller.PostController customerCheckOut
-INFO: Customer checked out
-Sep 18, 2023 9:00:38 PM com.example.demo.controller.GlobalExceptionHandler handleCustomerException
-WARNING: Customer exception
-Sep 18, 2023 9:07:06 PM com.example.demo.controller.AuthenticationController authenticateUser
+Sep 25, 2023 3:53:43 PM com.example.demo.authentication_service.controller.AuthenticationController logoutUser
+INFO: User logged out successfully!
+Sep 25, 2023 3:57:00 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
 INFO: User logged in successfully!
-Sep 18, 2023 9:07:31 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 9:07:36 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 9:07:52 PM com.example.demo.controller.PostController customerCheckOut
-INFO: Customer checked out
-Sep 18, 2023 9:08:01 PM com.example.demo.controller.PostController addProductToCartI
-INFO: Product added to cart
-Sep 18, 2023 9:08:08 PM com.example.demo.controller.PostController customerCheckOut
-INFO: Customer checked out
+Sep 25, 2023 3:57:11 PM com.example.demo.authentication_service.controller.AuthenticationController logoutUser
+INFO: User logged out successfully!
+Sep 25, 2023 4:01:56 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 25, 2023 4:02:07 PM com.example.demo.authentication_service.controller.AuthenticationController logoutUser
+INFO: User logged out successfully!
+Sep 25, 2023 4:02:30 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 25, 2023 4:48:12 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Sep 25, 2023 4:48:23 PM com.example.demo.authentication_service.controller.AuthenticationController logoutUser
+INFO: User logged out successfully!
+Sep 27, 2023 4:24:32 PM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: Request method 'GET' is not supported
+Oct 05, 2023 9:42:13 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 05, 2023 9:43:27 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 05, 2023 9:43:46 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: Cannot invoke "com.example.demo.product_service.repository.ProductService.getAllProducts()" because "this.productService" is null
