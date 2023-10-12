@@ -1,7 +1,6 @@
 package com.example.demo.system_service.exception;
 
 import com.example.demo.system_service.entity.ApplicationLogger;
-import com.example.demo.system_service.exception.CustomerException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

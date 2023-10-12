@@ -23,9 +23,8 @@ public class Product {
     @Min(value = 0, message = "Quantity must be greater than or equal to 0")
     private int quantityInStock;
 
-    @Lob
-    @Column(name = "Image", columnDefinition = "LONGBLOB")
-    private byte[] image;
+    @Column(name = "Image", length = 1000)
+    private String imagePath;
 
     @Column(name = "Rating")
     private double rating = 0.0D;
@@ -102,11 +101,11 @@ public class Product {
         quantityInStock = quantity;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

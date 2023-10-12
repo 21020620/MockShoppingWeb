@@ -30,3 +30,43 @@ Oct 05, 2023 9:48:47 AM com.example.demo.system_service.exception.GlobalExceptio
 WARNING: Customer exception
 Oct 05, 2023 9:48:55 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleCustomerException
 WARNING: Customer exception
+Oct 05, 2023 3:49:11 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 05, 2023 3:51:09 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 05, 2023 4:10:27 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 10, 2023 9:35:44 PM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 9:57:44 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 10:02:21 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 10:42:13 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 10:56:53 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 10:58:55 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: Path must not be null
+Oct 12, 2023 11:01:09 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:02:44 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleCustomerException
+WARNING: Customer exception
+Oct 12, 2023 11:02:49 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: class path resource [static/product_images/1.jpg] cannot be resolved to URL because it does not exist
+Oct 12, 2023 11:04:07 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: class path resource [static/product_images/1.jpg] cannot be resolved to URL because it does not exist
+Oct 12, 2023 11:05:43 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:07:47 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:08:40 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:09:23 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:11:21 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Oct 12, 2023 11:12:23 AM com.example.demo.system_service.exception.GlobalExceptionHandler handleException
+WARNING: class path resource [static/product_images/2.jpg] cannot be resolved to URL because it does not exist
+Oct 12, 2023 11:12:54 AM com.example.demo.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!

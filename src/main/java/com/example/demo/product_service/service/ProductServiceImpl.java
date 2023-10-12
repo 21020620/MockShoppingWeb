@@ -10,9 +10,18 @@ import com.example.demo.system_service.exception.CustomerException;
 import com.example.demo.order_service.repository.OrderItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
@@ -85,5 +94,26 @@ public class ProductServiceImpl implements ProductService {
         StringBuilder sb = new StringBuilder();
         product.getReviews().forEach(review -> sb.append(review.toString()).append("\n"));
         return sb.toString();
+    }
+
+    @Override
+    public void addImageToProduct(Long id, MultipartFile imageFile) throws IOException{
+        Product product = productRepository.findById(id).orElseThrow(() -> new CustomerException("Product not found"));
+        String uploadDir = "src/main/resources/static/product_images";
+        String fileName = product.getId().toString() + ".jpg";
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath))
+            Files.createDirectories(uploadPath);
+        InputStream inputStream = imageFile.getInputStream();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        product.setImagePath("static/product_images/" + product.getId().toString() + ".jpg");
+        productRepository.save(product);
+    }
+
+    @Override
+    public Resource getImage(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new CustomerException("Product not found"));
+        return new ClassPathResource(product.getImagePath());
     }
 }

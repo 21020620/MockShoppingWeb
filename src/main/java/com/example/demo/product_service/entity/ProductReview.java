@@ -1,7 +1,6 @@
 package com.example.demo.product_service.entity;
 
 import com.example.demo.customer_service.entity.Customer;
-import com.example.demo.product_service.entity.Product;
 import jakarta.persistence.*;
 
 @Entity

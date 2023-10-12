@@ -3,6 +3,7 @@ package com.example.demo.product_service.controller;
 import com.example.demo.customer_service.repository.CustomerService;
 import com.example.demo.product_service.entity.Product;
 import com.example.demo.product_service.repository.ProductService;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +24,6 @@ public class ProductController {
     }
 
     //GET METHODS
-    @GetMapping(value = {"getImage/{productId}"})
-    public ResponseEntity<byte[]> getProductImage(@PathVariable Long productId) {
-        Product product = productService.getProductById(productId);
-        if (product == null || product.getImage() == null) {
-            return ResponseEntity.notFound().build();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(product.getImage());
-    }
 
     @GetMapping("{productId}")
     public ResponseEntity<?> getProduct(@PathVariable Long productId) {
@@ -47,21 +36,25 @@ public class ProductController {
         return ResponseEntity.ok(productService.showAllReviews(productId));
     }
 
+    @GetMapping(value = {"getImage/{productId}"}, produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<?> getProductImage(@PathVariable Long productId) throws IOException {
+        Resource resource = productService.getImage(productId);
+        return ResponseEntity.ok().body(resource);
+    }
+
     //POST METHODS
     @PostMapping("create")
-    public ResponseEntity<?> createProduct(@RequestPart("imageFile") MultipartFile imageFile,
-                                           @RequestPart("productData") Product product) {
-        try {
-            byte[] imageBytes = imageFile.getBytes();
-            product.setImage(imageBytes);
-            System.out.println(product);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            return ResponseEntity.badRequest().body("Error when uploading image");
-        }
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
         productService.addProduct(product);
         logger.info("Product created: " + product);
-        return ResponseEntity.ok("File received successful\nProduct created");
+        return ResponseEntity.ok("Product created");
+    }
+
+    @PostMapping("addImage/{id}")
+    public ResponseEntity<?> addImageToProduct(@PathVariable Long id, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        productService.addImageToProduct(id, imageFile);
+        logger.info("Image added to product");
+        return ResponseEntity.ok("Image added to product");
     }
 
     //PUT METHODS

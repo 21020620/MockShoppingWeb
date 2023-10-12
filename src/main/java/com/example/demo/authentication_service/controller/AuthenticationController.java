@@ -9,8 +9,6 @@ import com.example.demo.authentication_service.entity.JwtProvider;
 import com.example.demo.authentication_service.entity.RefreshToken;
 import com.example.demo.authentication_service.service.RefreshTokenService;
 import com.example.demo.authentication_service.entity.TokenRefreshResponse;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
